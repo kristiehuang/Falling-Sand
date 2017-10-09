@@ -25,16 +25,21 @@ public class SandLab
     names[EMPTY] = "Empty";
     names[METAL] = "Metal";
     display = new SandDisplay("Falling Sand", numRows, numCols, names);
+    grid = new int[numRows][numCols];
   }
   
   //called when the user clicks on a location using the given tool
   private void locationClicked(int row, int col, int tool)
   {
+	  grid[row][col] = tool;
   }
 
   //copies each element of grid into the display
   public void updateDisplay()
   {
+	  //for element in grid; if tool = empty, set color black
+	  //if tool = metal, set color gray
+	  SandDisplay.setColor(row, col, Color.gray);
   }
 
   //called repeatedly.

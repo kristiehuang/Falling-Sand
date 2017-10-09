@@ -5,6 +5,8 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
+//Kristie Huang; B˚
+
 public class SandDisplay extends JComponent implements MouseListener,
   MouseMotionListener, ActionListener, ChangeListener
 {
