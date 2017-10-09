@@ -8,6 +8,7 @@ import javax.swing.event.*;
 public class SandDisplay extends JComponent implements MouseListener,
   MouseMotionListener, ActionListener, ChangeListener
 {
+	
   private Image image;
   private int cellSize;
   private JFrame frame;
