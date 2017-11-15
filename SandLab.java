@@ -26,10 +26,11 @@ public class SandLab
 	public SandLab(int numRows, int numCols)
 	{
 		String[] names;
-		names = new String[3];
+		names = new String[4];
 		names[EMPTY] = "Empty";
 		names[METAL] = "Metal";
 		names[SAND] = "Sand";
+		names[WATER] = "Water";
 		display = new SandDisplay("Falling Sand", numRows, numCols, names);
 		grid = new int[numRows][numCols];
 	}
@@ -57,6 +58,9 @@ public class SandLab
 				else if (grid[i][j] == SAND){ //if tool is sand
 					display.setColor(i, j, Color.yellow);
 				}
+				else if (grid[i][j] == WATER){ //if tool is water
+					display.setColor(i, j, Color.cyan);
+				}
 			}
 		}
 
@@ -71,9 +75,21 @@ public class SandLab
 		int y = rand.nextInt(grid[0].length);
 		System.out.println("" + x);
 		if (grid[x][y] == SAND) {
-			grid[x][y] = EMPTY;
-			grid[x+1][y] = SAND;
+			if (grid[x+1][y] != METAL) {
+				grid[x][y] = EMPTY;
+				grid[x+1][y] = SAND;
+			}
 		}
+		
+		else if(grid[x][y] == WATER) {
+			int num = rand.nextInt(3);
+			//if num = 1, go left. if 2, go right. if 3, go down
+			//In the step method, when the randomly chosen location contains a water particle, pick one of three random directions. If the location in that randomly chosen direction is empty, the water particle moves there. (Look for ways to minimize duplicate code in your step method.)
+//Test that the water behaves roughly like a liquid, taking the shape of a container.
+
+			
+		}
+
 
 	}
 
