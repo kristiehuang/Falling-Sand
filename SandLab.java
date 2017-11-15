@@ -73,9 +73,9 @@ public class SandLab
 		Random rand = new Random();
 		int x = rand.nextInt(grid.length - 1);
 		int y = rand.nextInt(grid[0].length);
-		System.out.println("" + x);
+
 		if (grid[x][y] == SAND) {
-			if (grid[x+1][y] != METAL) {
+			if (grid[x+1][y] == EMPTY) {
 				grid[x][y] = EMPTY;
 				grid[x+1][y] = SAND;
 			}
@@ -83,8 +83,28 @@ public class SandLab
 		
 		else if(grid[x][y] == WATER) {
 			int num = rand.nextInt(3);
+			System.out.println("" + num);
+			if (grid[x][y] == WATER) {
+				if (((grid[x+1][y] == EMPTY) && (grid[x][y+1] == EMPTY) && (grid[x][y-1] == EMPTY)) ||
+				((grid[x+1][y] == WATER) && (grid[x][y+1] == WATER) && (grid[x][y-1] == WATER)))
+				{
+					//if water or empty.. 
+					//AND out of bounds
+					grid[x][y] = EMPTY;
+					
+					if (num == 0) {
+						grid[x][y+1] = WATER; //right
+					}
+					else if (num == 1) {
+						grid[x][y-1] = WATER; //left
+					}
+					else if (num == 2) {
+						grid[x+1][y] = WATER; //down
+					}
+				}
+			}
 			//if num = 1, go left. if 2, go right. if 3, go down
-			//In the step method, when the randomly chosen location contains a water particle, pick one of three random directions. If the location in that randomly chosen direction is empty, the water particle moves there. (Look for ways to minimize duplicate code in your step method.)
+// If the location in that randomly chosen direction is empty, the water particle moves there. (Look for ways to minimize duplicate code in your step method.)
 //Test that the water behaves roughly like a liquid, taking the shape of a container.
 
 			
