@@ -17,6 +17,7 @@ public class SandLab
 	public static final int METAL = 1;
 	public static final int SAND = 2;
 	public static final int WATER = 3;
+	public static final int ICE = 4;
 
 
 	//do not add any more fields
@@ -26,11 +27,12 @@ public class SandLab
 	public SandLab(int numRows, int numCols)
 	{
 		String[] names;
-		names = new String[4];
+		names = new String[5];
 		names[EMPTY] = "Empty";
 		names[METAL] = "Metal";
 		names[SAND] = "Sand";
 		names[WATER] = "Water";
+		names[ICE] = "Ice";
 		display = new SandDisplay("Falling Sand", numRows, numCols, names);
 		grid = new int[numRows][numCols];
 	}
@@ -61,6 +63,9 @@ public class SandLab
 				else if (grid[i][j] == WATER){ //if tool is water
 					display.setColor(i, j, Color.cyan);
 				}
+				else if (grid[i][j] == ICE){ //if tool is ICE
+					display.setColor(i, j, Color.white);
+				}
 			}
 		}
 
@@ -80,34 +85,64 @@ public class SandLab
 				grid[x+1][y] = SAND;
 			}
 		}
-		
 		else if(grid[x][y] == WATER) {
 			int num = rand.nextInt(3);
 			System.out.println("" + num);
 			if (grid[x][y] == WATER) {
-				if (((grid[x+1][y] == EMPTY) && (grid[x][y+1] == EMPTY) && (grid[x][y-1] == EMPTY)) ||
-				((grid[x+1][y] == WATER) && (grid[x][y+1] == WATER) && (grid[x][y-1] == WATER)))
+				if ((( (y+1) < grid[0].length) && (y > 1)) && ((grid[x+1][y] == EMPTY) || (grid[x+1][y] == WATER)) && ((grid[x][y+1] == EMPTY)  || (grid[x][y+1] == WATER)) && ((grid[x][y-1] == EMPTY)  || (grid[x][y-1] == WATER)))
 				{
-					//if water or empty.. 
+
 					//AND out of bounds
 					grid[x][y] = EMPTY;
-					
-					if (num == 0) {
+
+					if ((num == 0) && (grid[x][y+1] == EMPTY)) {
 						grid[x][y+1] = WATER; //right
 					}
-					else if (num == 1) {
+					else if ((num == 1) && (grid[x][y-1] == EMPTY)) {
 						grid[x][y-1] = WATER; //left
 					}
-					else if (num == 2) {
+					else if ((num == 2) && (grid[x+1][y] == EMPTY)) {
 						grid[x+1][y] = WATER; //down
+
 					}
 				}
 			}
 			//if num = 1, go left. if 2, go right. if 3, go down
-// If the location in that randomly chosen direction is empty, the water particle moves there. (Look for ways to minimize duplicate code in your step method.)
-//Test that the water behaves roughly like a liquid, taking the shape of a container.
+			// If the location in that randomly chosen direction is empty, the water particle moves there. (Look for ways to minimize duplicate code in your step method.)
+			//Test that the ICE behaves roughly like a liquid, taking the shape of a container.
 
-			
+
+		}
+		else if(grid[x][y] == ICE) {
+			int num = rand.nextInt(3);
+			System.out.println("" + num);
+			if (grid[x][y] == ICE) {
+				//if ((grid[x+1][y] == EMPTY) && (grid[x][y+1] == EMPTY) && (grid[x][y-1] == EMPTY)) {
+				if ((( (y+1) < grid[0].length) && (y > 1)) && ((grid[x+1][y] == EMPTY) || (grid[x+1][y] == WATER)) && ((grid[x][y+1] == EMPTY)  || (grid[x][y+1] == WATER)) && ((grid[x][y-1] == EMPTY)  || (grid[x][y-1] == WATER)))
+				{
+
+					//					grid.length (x)
+					//					grid[0].length
+					//AND out of bounds
+					grid[x][y] = EMPTY;
+
+					if ((num == 0) && (grid[x][y+1] == EMPTY)) {
+						grid[x][y+1] = ICE; //right
+					}
+					else if ((num == 1) && (grid[x][y-1] == EMPTY)) {
+						grid[x][y-1] = ICE; //left
+					}
+					else if ((num == 2) && (grid[x+1][y] == EMPTY)) {
+						grid[x+1][y] = ICE; //down
+
+					}
+				}
+			}
+			//if num = 1, go left. if 2, go right. if 3, go down
+			// If the location in that randomly chosen direction is empty, the ICE particle moves there. (Look for ways to minimize duplicate code in your step method.)
+			//Test that the ICE behaves roughly like a liquid, taking the shape of a container.
+
+
 		}
 
 
